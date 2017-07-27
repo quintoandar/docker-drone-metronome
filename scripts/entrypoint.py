@@ -9,10 +9,12 @@ if __name__ == "__main__":
     server = config.get("server")
     job_config = config.get("job_config")
 
+    print job_config
+
     r = requests.get(('%s/v1/jobs/%s') % (server, job_config.get("id")))
     if r.status_code == 200:
         r = requests.put('%s/v0/scheduled-jobs/%s' % (server, job_config.get("id")), json=job_config)
     elif r.status_code == 404:
         r = requests.post('%s/v0/scheduled-jobs/' % (server), json=job_config)
 
-    print r.text
+    print r
